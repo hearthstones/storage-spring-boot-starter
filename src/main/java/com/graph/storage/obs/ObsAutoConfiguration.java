@@ -19,7 +19,7 @@ import javax.annotation.Resource;
 @Configuration
 @ConditionalOnWebApplication
 @EnableConfigurationProperties({ObsProperties.class})
-@Import({ObsProperties.class, ObsStrategy.class, ObsClient.class})
+@Import({ObsStrategy.class})
 public class ObsAutoConfiguration {
 
     @Resource

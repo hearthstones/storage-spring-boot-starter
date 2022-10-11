@@ -2,6 +2,7 @@ package com.graph.storage.obs;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.graph.storage.common.StorageStrategy;
 import com.obs.services.ObsClient;
@@ -11,7 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.IOException;
-import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -48,6 +48,11 @@ public class ObsStrategy implements StorageStrategy {
         try {
             PutObjectResult putObjectResult = obsClient.putObject(obsProperties.getBucketName(), fileName, file.getInputStream());
             url = putObjectResult.getObjectUrl().replaceAll(":443", "");
+            // CDN配置
+            String cdnDomain = obsProperties.getCdnDomain();
+            if (StrUtil.isNotBlank(cdnDomain)) {
+                url = url.replaceAll(obsProperties.getObsDomain(), cdnDomain);
+            }
         } catch (IOException e) {
             log.error("文件上传失败！文件名：{}，异常信息：{}", originName, e);
         }

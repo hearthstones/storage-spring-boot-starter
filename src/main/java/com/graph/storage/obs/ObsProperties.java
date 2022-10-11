@@ -19,6 +19,21 @@ public class ObsProperties {
     private String endpoint;
 
     /**
+     * 桶名称
+     */
+    private String bucketName;
+
+    /**
+     * OBS访问域名
+     */
+    private String obsDomain;
+
+    /**
+     * CDN域名
+     */
+    private String cdnDomain;
+
+    /**
      * 访问密钥AK
      */
     private String accessKey;
@@ -27,10 +42,5 @@ public class ObsProperties {
      * 访问密钥SK
      */
     private String secretKey;
-
-    /**
-     * 桶名称
-     */
-    private String bucketName;
 
 }
